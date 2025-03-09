@@ -20,4 +20,9 @@ defmodule UserServiceWeb.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
+
+  # Catch-All Route
+  scope "/", UserServiceWeb do
+    match :*, "/*path", FallbackController, :not_found
+  end
 end
