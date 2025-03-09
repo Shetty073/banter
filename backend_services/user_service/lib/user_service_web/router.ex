@@ -7,6 +7,8 @@ defmodule UserServiceWeb.Router do
 
   scope "/api", UserServiceWeb do
     pipe_through :api
+
+    get "/users", UserController, :users
   end
 
   # Enable Swoosh mailbox preview in development

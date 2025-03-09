@@ -17,6 +17,7 @@ do
   if [ ! -f ".envrc" ]; then
     echo "source_env .env" > .envrc
     direnv allow
+    mix deps.get
   fi
 
   # Load .env and run migrations

@@ -1,6 +1,5 @@
 import Config
 
-
 # Configure your database
 config :user_service, UserService.Repo,
   username: System.get_env("DB_USERNAME"),
