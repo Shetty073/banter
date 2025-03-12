@@ -51,7 +51,6 @@ func RegisterController(c *gin.Context) {
 		DateOfBirth:  input.DateOfBirth,
 		Gender:       input.Gender,
 		MobileNumber: input.MobileNumber,
-		IsCustomer:   true,
 	}
 
 	// Save user to the database

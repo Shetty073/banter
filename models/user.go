@@ -82,21 +82,3 @@ func GetUserByEmailOrUsername(email, username string, user *User) error {
 
 	return gorm.ErrRecordNotFound
 }
-
-// GetAllSupportTickets retrieves all support tickets for a user, regardless of role (customer, assigned, etc.)
-func (u *User) GetAllSupportTickets() ([]SupportTicket, error) {
-	var supportTickets []SupportTicket
-	query := stores.GetDb()
-
-	if u.IsCustomer {
-		query = query.Where("customer_id = ?", u.ID)
-	} else {
-		query = query.Where("assigned_to = ? OR created_by = ? OR updated_by = ?", u.ID, u.ID, u.ID)
-	}
-
-	if err := query.Find(&supportTickets).Error; err != nil {
-		return nil, err
-	}
-
-	return supportTickets, nil
-}
