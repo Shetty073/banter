@@ -40,6 +40,12 @@ func RegisterController(c *gin.Context) {
 		return
 	}
 
+	dob, err := input.GetParsedDOB()
+	if err != nil {
+		responses.BadRequest(c, "Invalid Input", err.Error())
+		return
+	}
+
 	// Create user model
 	user := models.User{
 		ID:           uuid.New(),
@@ -48,7 +54,7 @@ func RegisterController(c *gin.Context) {
 		Password:     string(hashedPassword),
 		FirstName:    input.FirstName,
 		LastName:     input.LastName,
-		DateOfBirth:  input.DateOfBirth,
+		DateOfBirth:  dob,
 		Gender:       input.Gender,
 		MobileNumber: input.MobileNumber,
 	}

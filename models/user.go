@@ -16,7 +16,7 @@ type User struct {
 	Password     string           `gorm:"not null"`
 	FirstName    string           `gorm:"type:varchar(50)"`
 	LastName     string           `gorm:"type:varchar(50)"`
-	DateOfBirth  string           `gorm:"type:date"`
+	DateOfBirth  time.Time        `gorm:"type:date"`
 	Gender       string           `gorm:"type:varchar(12)"`
 	MobileNumber string           `gorm:"type:varchar(15);index"`
 	IsStaff      bool             `gorm:"default:false;index"`
