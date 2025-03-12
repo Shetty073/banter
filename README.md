@@ -4,7 +4,7 @@ A social media app
 
 ## stack
 
-- Phoenix (elixir / erlang)
+- Gin (golang)
 - minio (S3 like storage)
 - postgreSQL
 
@@ -12,12 +12,10 @@ A social media app
 
 ## For development
 
+- install go
 - install homebrew
-- install Erlang and Elixir using brew
 - install minio using brew
-- install mongoDB
 - install postgreSQL
-- install direnv using brew (for configs)
 
 ### minio guide
 
