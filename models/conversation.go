@@ -15,3 +15,15 @@ type Conversation struct {
 	UpdatedAt *time.Time `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
 	DeletedAt gorm.DeletedAt
 }
+
+type ConversationUser struct {
+	ID             uuid.UUID  `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	ConversationID uuid.UUID  `gorm:"type:uuid;not null;index"`
+	MemberID       uuid.UUID  `gorm:"type:uuid;not null;index"` // User in this conversation
+	CreatedAt      *time.Time `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
+	UpdatedAt      *time.Time `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
+	DeletedAt      gorm.DeletedAt
+
+	Conversation Conversation `gorm:"foreignKey:ConversationID"`
+	Member       User         `gorm:"foreignKey:MemberID"`
+}
