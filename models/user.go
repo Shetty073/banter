@@ -21,7 +21,7 @@ type User struct {
 	MobileNumber string           `gorm:"type:varchar(15);index"`
 	IsStaff      bool             `gorm:"default:false;index"`
 	IsOwner      bool             `gorm:"default:false;index"`
-	LastLoginAt  *time.Time       `gorm:"type:timestamp;index"`
+	LastSeen     *time.Time       `gorm:"type:timestamp;index"`
 	Status       enums.UserStatus `gorm:"type:varchar(15);index"`
 	CreatedAt    *time.Time       `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
 	UpdatedAt    *time.Time       `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
