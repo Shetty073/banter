@@ -16,7 +16,7 @@ type Conversation struct {
 	DeletedAt gorm.DeletedAt
 }
 
-type ConversationUser struct {
+type ConversationMember struct {
 	ID             uuid.UUID  `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	ConversationID uuid.UUID  `gorm:"type:uuid;not null;index"`
 	MemberID       uuid.UUID  `gorm:"type:uuid;not null;index"` // User in this conversation

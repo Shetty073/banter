@@ -9,6 +9,11 @@ import (
 func RegisterAllModels() {
 	modelTypes := []interface{}{
 		&models.User{},
+		&models.Conversation{},
+		&models.ConversationMember{},
+		&models.Message{},
+		&models.Attachment{},
+
 		// add new models here for migration
 	}
 
