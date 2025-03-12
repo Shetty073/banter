@@ -11,9 +11,7 @@ type Message struct {
 	ID             uuid.UUID  `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	ConversationID uuid.UUID  `gorm:"type:uuid;not null;index"`
 	SenderID       uuid.UUID  `gorm:"type:uuid;not null;index"`
-	Content        string     `gorm:"type:varchar(1024)"`
-	AttachmentURL  string     `gorm:"type:varchar(50)"`
-	AttachmentType string     `gorm:"type:varchar(10)"` // image, video or document
+	Content        string     `gorm:"type:varchar(65536)"`
 	CreatedAt      *time.Time `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
 	UpdatedAt      *time.Time `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
 	DeletedAt      gorm.DeletedAt
