@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"banter/models"
@@ -12,7 +12,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// RegisterController handles customer registration
+// RegisterHandler handles customer registration
 // @Summary Register a new customer
 // @Description Creates a new user with the provided details
 // @Tags Auth
@@ -23,7 +23,7 @@ import (
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
 // @Router /auth/register [post]
-func RegisterController(c *gin.Context) {
+func RegisterHandler(c *gin.Context) {
 	var input schemas.RegisterSchema
 
 	// Bind JSON request body to input struct
@@ -69,7 +69,7 @@ func RegisterController(c *gin.Context) {
 	responses.Created(c, gin.H{"message": "User registered successfully"})
 }
 
-// LoginController handles user authentication
+// LoginHandler handles user authentication
 // @Summary User login
 // @Description Authenticates a user with email/username and password, and returns a JWT token
 // @Tags Auth
@@ -81,7 +81,7 @@ func RegisterController(c *gin.Context) {
 // @Failure 401 {object} responses.FailureBody
 // @Failure 500 {object} responses.FailureBody
 // @Router /auth/login [post]
-func LoginController(c *gin.Context) {
+func LoginHandler(c *gin.Context) {
 	var input schemas.LoginSchema
 
 	// Bind JSON request body to input struct

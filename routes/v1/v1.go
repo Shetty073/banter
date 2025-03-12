@@ -1,9 +1,10 @@
 package v1
 
 import (
-	"net/http"
+	"banter/handlers"
 	"banter/middlewares"
 	"banter/responses"
+	"net/http"
 
 	_ "banter/docs"
 
@@ -35,11 +36,7 @@ func UserRoutes(router *gin.RouterGroup) {
 	router.Use(middlewares.JWTMiddleware())
 	{
 		// User related routes
-		router.Handle(http.MethodPost, "/user/create", PlaceHolder)
-		router.Handle(http.MethodPost, "/user/read", PlaceHolder)
-		router.Handle(http.MethodPost, "/user/read/:id", PlaceHolder)
-		router.Handle(http.MethodPost, "/user/update/:id", PlaceHolder)
-		router.Handle(http.MethodPost, "/user/delete/:id", PlaceHolder)
+		router.Handle(http.MethodGet, "/user/:id", handlers.GetUserDetailsHandler)
 	}
 }
 
