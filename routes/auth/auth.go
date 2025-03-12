@@ -3,7 +3,7 @@ package auth
 import (
 	"net/http"
 
-	"banter/controllers"
+	"banter/handlers"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,8 +11,8 @@ import (
 var RouteGroupName = "/auth"
 
 func Routes(router *gin.RouterGroup) {
-	router.Handle(http.MethodPost, "/login", controllers.LoginController)
-	router.Handle(http.MethodPost, "/register", controllers.RegisterController)
+	router.Handle(http.MethodPost, "/login", handlers.LoginHandler)
+	router.Handle(http.MethodPost, "/register", handlers.RegisterHandler)
 
 	return
 }
