@@ -50,8 +50,14 @@ func main() {
 
 	// Register routes
 	auth.Routes(router.Group(auth.RouteGroupName))
-	v1.UserRoutes(router.Group(v1.RouteGroupName))
 	v1.ApiDocRoutes(router.Group(v1.RouteGroupName))
+	v1.UserRoutes(router.Group(v1.RouteGroupName))
+	v1.ConversationRoutes(router.Group(v1.RouteGroupName))
+
+	// 404 handler
+	router.NoRoute(func(c *gin.Context) {
+		responses.NotFound(c, "Route not found", "The requested endpoint does not exist.")
+	})
 
 	// Run the Gin server
 	router.Run(config.Configs.Server.Port)

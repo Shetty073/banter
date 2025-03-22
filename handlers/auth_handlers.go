@@ -1,11 +1,13 @@
 package handlers
 
 import (
+	"banter/constants/enums"
 	"banter/models"
 	"banter/responses"
 	"banter/schemas"
 	"banter/utils/config"
 	"banter/utils/jwt"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -40,7 +42,7 @@ func RegisterHandler(c *gin.Context) {
 		return
 	}
 
-	dob, err := input.GetParsedDOB()
+	dob, err := schemas.ParseDOB(input.DateOfBirth)
 	if err != nil {
 		responses.BadRequest(c, "Invalid Input", err.Error())
 		return
@@ -57,6 +59,7 @@ func RegisterHandler(c *gin.Context) {
 		DateOfBirth:  dob,
 		Gender:       input.Gender,
 		MobileNumber: input.MobileNumber,
+		Status:       enums.UserActive,
 	}
 
 	// Save user to the database
@@ -104,19 +107,37 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
+	if user.Status == enums.UserBanned {
+		responses.Forbidden(c, "Account Banned", "User account is banned")
+		return
+	}
+
+	if user.Status == enums.UserInactive {
+		responses.Unauthorized(c, "Account Inactive", "User account is banned")
+		return
+	}
+
 	// Compare provided password with stored hash
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password)); err != nil {
 		responses.Unauthorized(c, "Authentication Error", err.Error())
 		return
 	}
 
-	// Generate JWT token using your existing function
+	// Generate JWT token
 	tokenString, err := jwt.GenerateToken(user.ID.String(), config.Configs.Auth.TokenValidityInHrs)
 	if err != nil {
 		responses.InternalServerError(c, "Token Generation Error", "Failed to generate token")
 		return
 	}
 
-	// Respond with token
+	lastSeen := time.Now()
+	// update the last seen
+	user.LastSeen = &lastSeen
+	err = user.UpdateUser()
+	if err != nil {
+		responses.InternalServerError(c, "Data Updation Error", "Error updating data")
+		return
+	}
+	// Success response with token
 	responses.Ok(c, gin.H{"token": tokenString})
 }

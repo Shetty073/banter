@@ -10,24 +10,24 @@ import (
 )
 
 type User struct {
-	ID              uuid.UUID        `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
-	Username        string           `gorm:"unique;not null;index"`
-	Email           string           `gorm:"unique;not null;index"`
-	Password        string           `gorm:"not null"`
-	FirstName       string           `gorm:"type:varchar(50)"`
-	LastName        string           `gorm:"type:varchar(50)"`
-	DateOfBirth     time.Time        `gorm:"type:date"`
-	Gender          string           `gorm:"type:varchar(12)"`
-	MobileNumber    string           `gorm:"type:varchar(15);index"`
-	ProfilePhoto    string           `gorm:"type:varchar(1024);"`
-	ProfilePhotoUrl string           `gorm:"type:varchar(1024);"`
-	IsStaff         bool             `gorm:"default:false;index"`
-	IsOwner         bool             `gorm:"default:false;index"`
-	LastSeen        *time.Time       `gorm:"type:timestamp;index"`
-	Status          enums.UserStatus `gorm:"type:varchar(15);index"`
-	CreatedAt       *time.Time       `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
-	UpdatedAt       *time.Time       `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;index"`
-	DeletedAt       gorm.DeletedAt
+	ID               uuid.UUID        `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	Username         string           `gorm:"unique;not null;index"`
+	Email            string           `gorm:"unique;not null;index"`
+	Password         string           `gorm:"not null"`
+	FirstName        string           `gorm:"type:varchar(50)"`
+	LastName         string           `gorm:"type:varchar(50)"`
+	DateOfBirth      time.Time        `gorm:"type:date"`
+	Gender           string           `gorm:"type:varchar(12)"`
+	MobileNumber     string           `gorm:"type:varchar(15);index"`
+	ProfilePhotoPath string           `gorm:"type:varchar(1024);"`
+	ProfilePhotoUrl  string           `gorm:"type:varchar(1024);"`
+	IsStaff          bool             `gorm:"default:false;index"`
+	IsOwner          bool             `gorm:"default:false;index"`
+	LastSeen         *time.Time       `gorm:"type:timestamp;index"`
+	Status           enums.UserStatus `gorm:"type:varchar(15);index"`
+	CreatedAt        time.Time        `gorm:"default:CURRENT_TIMESTAMP;index"`
+	UpdatedAt        time.Time        `gorm:"default:CURRENT_TIMESTAMP;index"`
+	DeletedAt        gorm.DeletedAt   `gorm:"index"`
 }
 
 // GetUserByID retrieves a user by ID

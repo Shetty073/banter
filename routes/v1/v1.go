@@ -3,7 +3,6 @@ package v1
 import (
 	"banter/handlers"
 	"banter/middlewares"
-	"banter/responses"
 	"net/http"
 
 	_ "banter/docs"
@@ -15,28 +14,27 @@ import (
 
 var RouteGroupName = "/v1"
 
-// Placeholder is a test controller
-// @Summary Placeholder dummy
-// @Description This is a dummp placeholder
-// @Tags Placeholder
-// @Accept json
-// @Produce json
-// @Param request body schemas.LoginSchema true "Placeholder sample"
-// @Success 200 {object} responses.SuccessBody
-// @Failure 400 {object} responses.FailureBody
-// @Failure 401 {object} responses.FailureBody
-// @Failure 500 {object} responses.FailureBody
-// @Router /placeholder [post]
-// @Security AuthorizationToken
-func PlaceHolder(c *gin.Context) {
-	responses.Ok(c, gin.H{"message": "Hello, world!"})
-}
-
 func UserRoutes(router *gin.RouterGroup) {
 	router.Use(middlewares.JWTMiddleware())
 	{
 		// User related routes
 		router.Handle(http.MethodGet, "/user/:id", handlers.GetUserDetailsHandler)
+		router.Handle(http.MethodPatch, "/user/:id", handlers.UpdateUserDetailsHandler)
+
+	}
+}
+
+func ConversationRoutes(router *gin.RouterGroup) {
+	router.Use(middlewares.JWTMiddleware())
+	{
+		// User related routes
+		router.Handle(http.MethodPost, "/conversation", handlers.StartConversationHandler)
+		router.Handle(http.MethodGet, "/conversations/member/:user_id", handlers.GetConversationsHandler)
+		router.Handle(http.MethodGet, "/conversation/:id", handlers.GetConversationHandler)
+		router.Handle(http.MethodPost, "/conversation/:id/member/:user_id", handlers.AddMemberHandler)
+		router.Handle(http.MethodDelete, "/conversation/:id/member/:user_id", handlers.RemoveMemberHandler)
+		router.Handle(http.MethodDelete, "/conversation/:id", handlers.DeleteConversationHandler)
+
 	}
 }
 
