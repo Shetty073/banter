@@ -17,9 +17,11 @@ type RegisterSchema struct {
 }
 
 // Function to parse DateOfBirth before saving
-func (r *RegisterSchema) GetParsedDOB() (time.Time, error) {
-	// Convert "24-03-1996" (DD-MM-YYYY) to Go's time.Time
-	dob, err := time.Parse("02-01-2006", r.DateOfBirth)
+func ParseDOB(dateOfBirth string) (time.Time, error) {
+	if dateOfBirth == "" {
+		return time.Time{}, errors.New("date of birth is empty")
+	}
+	dob, err := time.Parse("02-01-2006", dateOfBirth)
 	if err != nil {
 		return time.Time{}, errors.New("invalid date format, expected DD-MM-YYYY")
 	}
