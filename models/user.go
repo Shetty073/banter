@@ -27,7 +27,7 @@ type User struct {
 	Status           enums.UserStatus `gorm:"type:varchar(15);index"`
 	CreatedAt        time.Time        `gorm:"default:CURRENT_TIMESTAMP;index"`
 	UpdatedAt        time.Time        `gorm:"default:CURRENT_TIMESTAMP;index"`
-	DeletedAt        gorm.DeletedAt   `gorm:"index"`
+	DeletedAt        gorm.DeletedAt   `gorm:"index" swaggerignore:"true"`
 }
 
 // GetUserByID retrieves a user by ID

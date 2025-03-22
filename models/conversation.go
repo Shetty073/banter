@@ -18,7 +18,7 @@ type Conversation struct {
 	GroupPhotoUrl  string         `gorm:"type:varchar(1024);"`
 	CreatedAt      time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
 	UpdatedAt      time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
-	DeletedAt      gorm.DeletedAt `gorm:"index"`
+	DeletedAt      gorm.DeletedAt `gorm:"index" swaggerignore:"true"`
 }
 
 // ConversationMember represents the members in a conversation.
@@ -28,7 +28,7 @@ type ConversationMember struct {
 	MemberID       uuid.UUID      `gorm:"type:uuid;not null;index"`
 	CreatedAt      time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
 	UpdatedAt      time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
-	DeletedAt      gorm.DeletedAt `gorm:"index"`
+	DeletedAt      gorm.DeletedAt `gorm:"index" swaggerignore:"true"`
 
 	Conversation Conversation `gorm:"foreignKey:ConversationID"`
 	Member       User         `gorm:"foreignKey:MemberID"`

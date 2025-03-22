@@ -14,7 +14,7 @@ type Message struct {
 	Content        string         `gorm:"type:varchar(65536)"`
 	CreatedAt      time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
 	UpdatedAt      time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
-	DeletedAt      gorm.DeletedAt `gorm:"index"`
+	DeletedAt      gorm.DeletedAt `gorm:"index" swaggerignore:"true"`
 
 	Conversation Conversation `gorm:"foreignKey:ConversationID"`
 	Sender       User         `gorm:"foreignKey:SenderID"`

@@ -14,5 +14,5 @@ type Attachment struct {
 	FileUrl   string         `gorm:"type:varchar(1024)"`
 	CreatedAt time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
 	UpdatedAt time.Time      `gorm:"default:CURRENT_TIMESTAMP;index"`
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	DeletedAt gorm.DeletedAt `gorm:"index" swaggerignore:"true"`
 }
